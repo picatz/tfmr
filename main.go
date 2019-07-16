@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 )
@@ -116,6 +117,11 @@ func main() {
 	if strings.Contains(searchQuery, "-verified") {
 		flagVerified = true
 		searchQuery = strings.Replace(searchQuery, "-verified", "", -1)
+	}
+
+	if searchQuery == "" {
+		fmt.Println("no search query provided")
+		os.Exit(1)
 	}
 
 	results := searchAll(searchQuery, flagVerified)
