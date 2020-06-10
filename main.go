@@ -12,12 +12,6 @@ import (
 
 var flagVerified bool
 
-func init() {
-	flag.BoolVar(&flagVerified, "verified", false, "return only verified modules")
-
-	flag.Parse()
-}
-
 type module struct {
 	ID          string    `json:"id"`
 	Owner       string    `json:"owner"`
@@ -111,6 +105,9 @@ func searchAll(query string, verified bool) <-chan *searchResult {
 }
 
 func main() {
+	flag.BoolVar(&flagVerified, "verified", false, "return only verified modules")
+	flag.Parse()
+
 	searchQuery := strings.Join(flag.Args(), " ")
 
 	// if flag is out of order (not provided first)
